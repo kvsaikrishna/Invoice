@@ -18,6 +18,7 @@ namespace Invoice.repo
             ItemsVM vm = new ItemsVM();
 
             item newitemobj = new item();             //table
+            newitemobj.itemid = Items.itemid;
             newitemobj.itemname = Items.itemname;
             newitemobj.price = Items.price;
             newitemobj.discount = Items.discount;

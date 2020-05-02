@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerVM.cs" />
-    <Compile Include="DepartmentVM.cs" />
     <Compile Include="ItemsVM.cs" />
+    <Compile Include="ManufacturerVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
