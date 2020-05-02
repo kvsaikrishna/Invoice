@@ -350,7 +350,7 @@ warning 6013: The table/view 'storeDB.dbo.sample' does not have a primary key de
             <PropertyRef Name="departmentid" />
           </Key>
           <Property Name="departmentid" Type="Int32" Nullable="false" />
-          <Property Name="department1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="departmentname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="designations" Relationship="Self.FK_Designation_Department" FromRole="department" ToRole="designation" />
           <NavigationProperty Name="employees" Relationship="Self.FK_Employee_Department" FromRole="department" ToRole="employee" />
         </EntityType>
@@ -691,7 +691,7 @@ warning 6013: The table/view 'storeDB.dbo.sample' does not have a primary key de
             <EntityTypeMapping TypeName="storeDBModel.department">
               <MappingFragment StoreEntitySet="department">
                 <ScalarProperty Name="departmentid" ColumnName="departmentid" />
-                <ScalarProperty Name="department1" ColumnName="department" />
+                <ScalarProperty Name="departmentname" ColumnName="department" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -22,7 +22,7 @@ namespace Invoice.db
         }
     
         public int departmentid { get; set; }
-        public string department1 { get; set; }
+        public string departmentname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<designation> designations { get; set; }
