@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Invoice.db.item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.itemname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.manufacturedate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.expirydate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemtype.type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.manufacturer.manufacturername)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.manufacturedate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.expirydate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemtype.type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.manufacturer.manufacturername)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.itemid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.itemid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.itemid })
+        </td>
+    </tr>
+}
+
+</table>

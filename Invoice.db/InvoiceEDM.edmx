@@ -1,0 +1,838 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="storeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="int" Nullable="false" />
+          <Property Name="customername" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rewards" Type="int" />
+          <Property Name="contactnumber" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="location" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="departmentid" />
+          </Key>
+          <Property Name="departmentid" Type="int" Nullable="false" />
+          <Property Name="department" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="designation">
+          <Key>
+            <PropertyRef Name="designationid" />
+          </Key>
+          <Property Name="designationid" Type="int" Nullable="false" />
+          <Property Name="departmentid" Type="int" />
+          <Property Name="designation" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="int" Nullable="false" />
+          <Property Name="employeename" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="departmentid" Type="int" Nullable="false" />
+          <Property Name="designationid" Type="int" Nullable="false" />
+          <Property Name="location" Type="nvarchar" MaxLength="50" />
+          <Property Name="salary" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="invoice">
+          <Key>
+            <PropertyRef Name="invoiceid" />
+          </Key>
+          <Property Name="invoiceid" Type="int" Nullable="false" />
+          <Property Name="customerid" Type="int" Nullable="false" />
+          <Property Name="itemid" Type="int" Nullable="false" />
+          <Property Name="manufacturedate" Type="datetime" />
+          <Property Name="expirydate" Type="datetime" />
+          <Property Name="unitprice" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="discount" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="quantity" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="quantityunit" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="totalprice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="itemarrangement">
+          <Key>
+            <PropertyRef Name="arrangementid" />
+          </Key>
+          <Property Name="arrangementid" Type="int" Nullable="false" />
+          <Property Name="racktypeid" Type="int" Nullable="false" />
+          <Property Name="categoryid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="items">
+          <Key>
+            <PropertyRef Name="itemid" />
+          </Key>
+          <Property Name="itemid" Type="int" Nullable="false" />
+          <Property Name="itemtypeid" Type="int" Nullable="false" />
+          <Property Name="manufacturerid" Type="int" Nullable="false" />
+          <Property Name="itemname" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="discount" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="manufacturedate" Type="datetime" />
+          <Property Name="expirydate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="itemtype">
+          <Key>
+            <PropertyRef Name="typeid" />
+          </Key>
+          <Property Name="typeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="manufacturer">
+          <Key>
+            <PropertyRef Name="manufacturerid" />
+          </Key>
+          <Property Name="manufacturerid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="manufacturername" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="racktype">
+          <Key>
+            <PropertyRef Name="rackid" />
+          </Key>
+          <Property Name="rackid" Type="int" Nullable="false" />
+          <Property Name="racktype" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'storeDB.dbo.sample' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sample">
+          <Property Name="employeeid" Type="int" />
+          <Property Name="employeename" Type="nvarchar" MaxLength="50" />
+          <Property Name="departmentid" Type="int" />
+          <Property Name="designationid" Type="int" />
+          <Property Name="location" Type="nvarchar" MaxLength="50" />
+          <Property Name="salary" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>-->
+        <EntityType Name="stockin">
+          <Key>
+            <PropertyRef Name="stockinid" />
+          </Key>
+          <Property Name="stockinid" Type="int" Nullable="false" />
+          <Property Name="itemid" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="decimal" Precision="13" Scale="3" />
+          <Property Name="quantityunit" Type="varchar" MaxLength="50" />
+          <Property Name="stockindate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="stockout">
+          <Key>
+            <PropertyRef Name="stockoutid" />
+          </Key>
+          <Property Name="stockoutid" Type="int" Nullable="false" />
+          <Property Name="itemid" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="decimal" Precision="13" Scale="3" />
+          <Property Name="quantityunit" Type="nvarchar" MaxLength="50" />
+          <Property Name="stockoutdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Designation_Department">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="designation" Type="Self.designation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="departmentid" />
+            </Principal>
+            <Dependent Role="designation">
+              <PropertyRef Name="departmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="departmentid" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="departmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Role="designation" Type="Self.designation" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="designationid" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="departmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_Customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="invoice" Type="Self.invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="invoice">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_Item">
+          <End Role="items" Type="Self.items" Multiplicity="1" />
+          <End Role="invoice" Type="Self.invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="invoice">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ItemType">
+          <End Role="itemtype" Type="Self.itemtype" Multiplicity="1" />
+          <End Role="items" Type="Self.items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="itemtype">
+              <PropertyRef Name="typeid" />
+            </Principal>
+            <Dependent Role="items">
+              <PropertyRef Name="itemtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_manufacturer">
+          <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+          <End Role="items" Type="Self.items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manufacturer">
+              <PropertyRef Name="manufacturerid" />
+            </Principal>
+            <Dependent Role="items">
+              <PropertyRef Name="manufacturerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_itemarrangement_itemtype">
+          <End Role="itemtype" Type="Self.itemtype" Multiplicity="1" />
+          <End Role="itemarrangement" Type="Self.itemarrangement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="itemtype">
+              <PropertyRef Name="typeid" />
+            </Principal>
+            <Dependent Role="itemarrangement">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_itemarrangement_RackType">
+          <End Role="racktype" Type="Self.racktype" Multiplicity="1" />
+          <End Role="itemarrangement" Type="Self.itemarrangement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="racktype">
+              <PropertyRef Name="rackid" />
+            </Principal>
+            <Dependent Role="itemarrangement">
+              <PropertyRef Name="racktypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stockin_Item">
+          <End Role="items" Type="Self.items" Multiplicity="1" />
+          <End Role="stockin" Type="Self.stockin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="stockin">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stockout_Item">
+          <End Role="items" Type="Self.items" Multiplicity="1" />
+          <End Role="stockout" Type="Self.stockout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="stockout">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="storeDBModelStoreContainer">
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="designation" EntityType="Self.designation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invoice" EntityType="Self.invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="itemarrangement" EntityType="Self.itemarrangement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="items" EntityType="Self.items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="itemtype" EntityType="Self.itemtype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="manufacturer" EntityType="Self.manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="racktype" EntityType="Self.racktype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stockin" EntityType="Self.stockin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stockout" EntityType="Self.stockout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Designation_Department" Association="Self.FK_Designation_Department">
+            <End Role="department" EntitySet="department" />
+            <End Role="designation" EntitySet="designation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="department" EntitySet="department" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="designation" EntitySet="designation" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_Customer" Association="Self.FK_invoice_Customer">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="invoice" EntitySet="invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_Item" Association="Self.FK_invoice_Item">
+            <End Role="items" EntitySet="items" />
+            <End Role="invoice" EntitySet="invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ItemType" Association="Self.FK_Item_ItemType">
+            <End Role="itemtype" EntitySet="itemtype" />
+            <End Role="items" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_manufacturer" Association="Self.FK_Item_manufacturer">
+            <End Role="manufacturer" EntitySet="manufacturer" />
+            <End Role="items" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_itemarrangement_itemtype" Association="Self.FK_itemarrangement_itemtype">
+            <End Role="itemtype" EntitySet="itemtype" />
+            <End Role="itemarrangement" EntitySet="itemarrangement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_itemarrangement_RackType" Association="Self.FK_itemarrangement_RackType">
+            <End Role="racktype" EntitySet="racktype" />
+            <End Role="itemarrangement" EntitySet="itemarrangement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stockin_Item" Association="Self.FK_stockin_Item">
+            <End Role="items" EntitySet="items" />
+            <End Role="stockin" EntitySet="stockin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stockout_Item" Association="Self.FK_stockout_Item">
+            <End Role="items" EntitySet="items" />
+            <End Role="stockout" EntitySet="stockout" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="storeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="Int32" Nullable="false" />
+          <Property Name="customername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rewards" Type="Int32" />
+          <Property Name="contactnumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="invoices" Relationship="Self.FK_invoice_Customer" FromRole="customer" ToRole="invoice" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="departmentid" />
+          </Key>
+          <Property Name="departmentid" Type="Int32" Nullable="false" />
+          <Property Name="department1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="designations" Relationship="Self.FK_Designation_Department" FromRole="department" ToRole="designation" />
+          <NavigationProperty Name="employees" Relationship="Self.FK_Employee_Department" FromRole="department" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="designation">
+          <Key>
+            <PropertyRef Name="designationid" />
+          </Key>
+          <Property Name="designationid" Type="Int32" Nullable="false" />
+          <Property Name="departmentid" Type="Int32" />
+          <Property Name="designation1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="department" Relationship="Self.FK_Designation_Department" FromRole="designation" ToRole="department" />
+          <NavigationProperty Name="employees" Relationship="Self.FK_Employee_Designation" FromRole="designation" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="Int32" Nullable="false" />
+          <Property Name="employeename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="departmentid" Type="Int32" Nullable="false" />
+          <Property Name="designationid" Type="Int32" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salary" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="department" Relationship="Self.FK_Employee_Department" FromRole="employee" ToRole="department" />
+          <NavigationProperty Name="designation" Relationship="Self.FK_Employee_Designation" FromRole="employee" ToRole="designation" />
+        </EntityType>
+        <EntityType Name="invoice">
+          <Key>
+            <PropertyRef Name="invoiceid" />
+          </Key>
+          <Property Name="invoiceid" Type="Int32" Nullable="false" />
+          <Property Name="customerid" Type="Int32" Nullable="false" />
+          <Property Name="itemid" Type="Int32" Nullable="false" />
+          <Property Name="manufacturedate" Type="DateTime" Precision="3" />
+          <Property Name="expirydate" Type="DateTime" Precision="3" />
+          <Property Name="unitprice" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="discount" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="quantityunit" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="totalprice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="customer" Relationship="Self.FK_invoice_Customer" FromRole="invoice" ToRole="customer" />
+          <NavigationProperty Name="item" Relationship="Self.FK_invoice_Item" FromRole="invoice" ToRole="items" />
+        </EntityType>
+        <EntityType Name="itemarrangement">
+          <Key>
+            <PropertyRef Name="arrangementid" />
+          </Key>
+          <Property Name="arrangementid" Type="Int32" Nullable="false" />
+          <Property Name="racktypeid" Type="Int32" Nullable="false" />
+          <Property Name="categoryid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="itemtype" Relationship="Self.FK_itemarrangement_itemtype" FromRole="itemarrangement" ToRole="itemtype" />
+          <NavigationProperty Name="racktype" Relationship="Self.FK_itemarrangement_RackType" FromRole="itemarrangement" ToRole="racktype" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="itemid" />
+          </Key>
+          <Property Name="itemid" Type="Int32" Nullable="false" />
+          <Property Name="itemtypeid" Type="Int32" Nullable="false" />
+          <Property Name="manufacturerid" Type="Int32" Nullable="false" />
+          <Property Name="itemname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="discount" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="manufacturedate" Type="DateTime" Precision="3" />
+          <Property Name="expirydate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="invoices" Relationship="Self.FK_invoice_Item" FromRole="items" ToRole="invoice" />
+          <NavigationProperty Name="itemtype" Relationship="Self.FK_Item_ItemType" FromRole="items" ToRole="itemtype" />
+          <NavigationProperty Name="manufacturer" Relationship="Self.FK_Item_manufacturer" FromRole="items" ToRole="manufacturer" />
+          <NavigationProperty Name="stockins" Relationship="Self.FK_stockin_Item" FromRole="items" ToRole="stockin" />
+          <NavigationProperty Name="stockouts" Relationship="Self.FK_stockout_Item" FromRole="items" ToRole="stockout" />
+        </EntityType>
+        <EntityType Name="itemtype">
+          <Key>
+            <PropertyRef Name="typeid" />
+          </Key>
+          <Property Name="typeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="itemarrangements" Relationship="Self.FK_itemarrangement_itemtype" FromRole="itemtype" ToRole="itemarrangement" />
+          <NavigationProperty Name="items" Relationship="Self.FK_Item_ItemType" FromRole="itemtype" ToRole="items" />
+        </EntityType>
+        <EntityType Name="manufacturer">
+          <Key>
+            <PropertyRef Name="manufacturerid" />
+          </Key>
+          <Property Name="manufacturerid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="manufacturername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="items" Relationship="Self.FK_Item_manufacturer" FromRole="manufacturer" ToRole="items" />
+        </EntityType>
+        <EntityType Name="racktype">
+          <Key>
+            <PropertyRef Name="rackid" />
+          </Key>
+          <Property Name="rackid" Type="Int32" Nullable="false" />
+          <Property Name="racktype1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="itemarrangements" Relationship="Self.FK_itemarrangement_RackType" FromRole="racktype" ToRole="itemarrangement" />
+        </EntityType>
+        <EntityType Name="stockin">
+          <Key>
+            <PropertyRef Name="stockinid" />
+          </Key>
+          <Property Name="stockinid" Type="Int32" Nullable="false" />
+          <Property Name="itemid" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="13" Scale="3" />
+          <Property Name="quantityunit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="stockindate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="item" Relationship="Self.FK_stockin_Item" FromRole="stockin" ToRole="items" />
+        </EntityType>
+        <EntityType Name="stockout">
+          <Key>
+            <PropertyRef Name="stockoutid" />
+          </Key>
+          <Property Name="stockoutid" Type="Int32" Nullable="false" />
+          <Property Name="itemid" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="13" Scale="3" />
+          <Property Name="quantityunit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="stockoutdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="item" Relationship="Self.FK_stockout_Item" FromRole="stockout" ToRole="items" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_invoice_Customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="invoice" Type="Self.invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="invoice">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designation_Department">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="designation" Type="Self.designation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="departmentid" />
+            </Principal>
+            <Dependent Role="designation">
+              <PropertyRef Name="departmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="departmentid" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="departmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Role="designation" Type="Self.designation" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="designationid" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="departmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_Item">
+          <End Role="items" Type="Self.item" Multiplicity="1" />
+          <End Role="invoice" Type="Self.invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="invoice">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_itemarrangement_itemtype">
+          <End Role="itemtype" Type="Self.itemtype" Multiplicity="1" />
+          <End Role="itemarrangement" Type="Self.itemarrangement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="itemtype">
+              <PropertyRef Name="typeid" />
+            </Principal>
+            <Dependent Role="itemarrangement">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_itemarrangement_RackType">
+          <End Role="racktype" Type="Self.racktype" Multiplicity="1" />
+          <End Role="itemarrangement" Type="Self.itemarrangement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="racktype">
+              <PropertyRef Name="rackid" />
+            </Principal>
+            <Dependent Role="itemarrangement">
+              <PropertyRef Name="racktypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ItemType">
+          <End Role="itemtype" Type="Self.itemtype" Multiplicity="1" />
+          <End Role="items" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="itemtype">
+              <PropertyRef Name="typeid" />
+            </Principal>
+            <Dependent Role="items">
+              <PropertyRef Name="itemtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_manufacturer">
+          <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+          <End Role="items" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manufacturer">
+              <PropertyRef Name="manufacturerid" />
+            </Principal>
+            <Dependent Role="items">
+              <PropertyRef Name="manufacturerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stockin_Item">
+          <End Role="items" Type="Self.item" Multiplicity="1" />
+          <End Role="stockin" Type="Self.stockin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="stockin">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stockout_Item">
+          <End Role="items" Type="Self.item" Multiplicity="1" />
+          <End Role="stockout" Type="Self.stockout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="itemid" />
+            </Principal>
+            <Dependent Role="stockout">
+              <PropertyRef Name="itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="storeDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="designations" EntityType="Self.designation" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="invoices" EntityType="Self.invoice" />
+          <EntitySet Name="itemarrangements" EntityType="Self.itemarrangement" />
+          <EntitySet Name="items" EntityType="Self.item" />
+          <EntitySet Name="itemtypes" EntityType="Self.itemtype" />
+          <EntitySet Name="manufacturers" EntityType="Self.manufacturer" />
+          <EntitySet Name="racktypes" EntityType="Self.racktype" />
+          <EntitySet Name="stockins" EntityType="Self.stockin" />
+          <EntitySet Name="stockouts" EntityType="Self.stockout" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_invoice_Customer" Association="Self.FK_invoice_Customer">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="invoice" EntitySet="invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designation_Department" Association="Self.FK_Designation_Department">
+            <End Role="department" EntitySet="departments" />
+            <End Role="designation" EntitySet="designations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="department" EntitySet="departments" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="designation" EntitySet="designations" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_Item" Association="Self.FK_invoice_Item">
+            <End Role="items" EntitySet="items" />
+            <End Role="invoice" EntitySet="invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_itemarrangement_itemtype" Association="Self.FK_itemarrangement_itemtype">
+            <End Role="itemtype" EntitySet="itemtypes" />
+            <End Role="itemarrangement" EntitySet="itemarrangements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_itemarrangement_RackType" Association="Self.FK_itemarrangement_RackType">
+            <End Role="racktype" EntitySet="racktypes" />
+            <End Role="itemarrangement" EntitySet="itemarrangements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ItemType" Association="Self.FK_Item_ItemType">
+            <End Role="itemtype" EntitySet="itemtypes" />
+            <End Role="items" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_manufacturer" Association="Self.FK_Item_manufacturer">
+            <End Role="manufacturer" EntitySet="manufacturers" />
+            <End Role="items" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stockin_Item" Association="Self.FK_stockin_Item">
+            <End Role="items" EntitySet="items" />
+            <End Role="stockin" EntitySet="stockins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stockout_Item" Association="Self.FK_stockout_Item">
+            <End Role="items" EntitySet="items" />
+            <End Role="stockout" EntitySet="stockouts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="storeDBModelStoreContainer" CdmEntityContainer="storeDBEntities">
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="storeDBModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="customername" ColumnName="customername" />
+                <ScalarProperty Name="rewards" ColumnName="rewards" />
+                <ScalarProperty Name="contactnumber" ColumnName="contactnumber" />
+                <ScalarProperty Name="location" ColumnName="location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="storeDBModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="departmentid" ColumnName="departmentid" />
+                <ScalarProperty Name="department1" ColumnName="department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="designations">
+            <EntityTypeMapping TypeName="storeDBModel.designation">
+              <MappingFragment StoreEntitySet="designation">
+                <ScalarProperty Name="designationid" ColumnName="designationid" />
+                <ScalarProperty Name="departmentid" ColumnName="departmentid" />
+                <ScalarProperty Name="designation1" ColumnName="designation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="storeDBModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+                <ScalarProperty Name="employeename" ColumnName="employeename" />
+                <ScalarProperty Name="departmentid" ColumnName="departmentid" />
+                <ScalarProperty Name="designationid" ColumnName="designationid" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoices">
+            <EntityTypeMapping TypeName="storeDBModel.invoice">
+              <MappingFragment StoreEntitySet="invoice">
+                <ScalarProperty Name="invoiceid" ColumnName="invoiceid" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="manufacturedate" ColumnName="manufacturedate" />
+                <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="quantityunit" ColumnName="quantityunit" />
+                <ScalarProperty Name="totalprice" ColumnName="totalprice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="itemarrangements">
+            <EntityTypeMapping TypeName="storeDBModel.itemarrangement">
+              <MappingFragment StoreEntitySet="itemarrangement">
+                <ScalarProperty Name="arrangementid" ColumnName="arrangementid" />
+                <ScalarProperty Name="racktypeid" ColumnName="racktypeid" />
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="storeDBModel.item">
+              <MappingFragment StoreEntitySet="items">
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="itemtypeid" ColumnName="itemtypeid" />
+                <ScalarProperty Name="manufacturerid" ColumnName="manufacturerid" />
+                <ScalarProperty Name="itemname" ColumnName="itemname" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="manufacturedate" ColumnName="manufacturedate" />
+                <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="itemtypes">
+            <EntityTypeMapping TypeName="storeDBModel.itemtype">
+              <MappingFragment StoreEntitySet="itemtype">
+                <ScalarProperty Name="typeid" ColumnName="typeid" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="manufacturers">
+            <EntityTypeMapping TypeName="storeDBModel.manufacturer">
+              <MappingFragment StoreEntitySet="manufacturer">
+                <ScalarProperty Name="manufacturerid" ColumnName="manufacturerid" />
+                <ScalarProperty Name="manufacturername" ColumnName="manufacturername" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="racktypes">
+            <EntityTypeMapping TypeName="storeDBModel.racktype">
+              <MappingFragment StoreEntitySet="racktype">
+                <ScalarProperty Name="rackid" ColumnName="rackid" />
+                <ScalarProperty Name="racktype1" ColumnName="racktype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stockins">
+            <EntityTypeMapping TypeName="storeDBModel.stockin">
+              <MappingFragment StoreEntitySet="stockin">
+                <ScalarProperty Name="stockinid" ColumnName="stockinid" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="quantityunit" ColumnName="quantityunit" />
+                <ScalarProperty Name="stockindate" ColumnName="stockindate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stockouts">
+            <EntityTypeMapping TypeName="storeDBModel.stockout">
+              <MappingFragment StoreEntitySet="stockout">
+                <ScalarProperty Name="stockoutid" ColumnName="stockoutid" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="quantityunit" ColumnName="quantityunit" />
+                <ScalarProperty Name="stockoutdate" ColumnName="stockoutdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="storeDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
